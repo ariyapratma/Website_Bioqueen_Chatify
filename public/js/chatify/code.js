@@ -188,7 +188,7 @@ function attachmentTemplate(fileType, fileName, imgURL = null) {
       `
 <div class="attachment-preview">
  <span class="fas fa-times cancel"></span>
- <div class=" chat-image" style="background-image: url('` +
+ <div class="image-file chat-image" style="background-image: url('` +
       imgURL +
       `');"></div>
  <p><span class="fas fa-file-image"></span> ` +
