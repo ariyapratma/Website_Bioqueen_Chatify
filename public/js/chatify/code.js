@@ -32,13 +32,13 @@ const setMessengerId = (id) => $("meta[name=id]").attr("content", id);
  */
 Pusher.logToConsole = chatify.pusher.debug;
 const pusher = new Pusher(chatify.pusher.key, {
-    encrypted: chatify.pusher.options.encrypted,
-    cluster: chatify.pusher.options.cluster,
-    wsHost: chatify.pusher.options.host,
-    wsPort: chatify.pusher.options.port,
-    wssPort: chatify.pusher.options.port,
-    forceTLS: chatify.pusher.options.useTLS,
-    authEndpoint: chatify.pusherAuthEndpoint,
+  encrypted: chatify.pusher.options.encrypted,
+  cluster: chatify.pusher.options.cluster,
+  wsHost: chatify.pusher.options.host,
+  wsPort: chatify.pusher.options.port,
+  wssPort: chatify.pusher.options.port,
+  forceTLS: chatify.pusher.options.useTLS,
+  authEndpoint: chatify.pusherAuthEndpoint,
   auth: {
     headers: {
       "X-CSRF-TOKEN": csrfToken,
@@ -188,13 +188,13 @@ function attachmentTemplate(fileType, fileName, imgURL = null) {
       `
 <div class="attachment-preview">
  <span class="fas fa-times cancel"></span>
- <div class=" chat-image" style="background-image: url('` +
+  <div class="image-file chat-image" style="background-image: url('` +
       imgURL +
       `');"></div>
  <p><span class="fas fa-file-image"></span> ` +
       escapeHtml(fileName) +
       `</p>
-</div>
+</div
 `
     );
   }
@@ -1709,3 +1709,63 @@ function updateElementsDateToTimeAgo() {
 setInterval(() => {
   updateElementsDateToTimeAgo();
 }, 60000);
+
+/**
+ *-------------------------------------------------------------
+ * FAQ Functions
+ *-------------------------------------------------------------
+ */
+function loadFAQ() {
+  const faqModal = document.getElementById('faq-modal');
+  const faqList = document.getElementById('faq-list');
+
+  // Kosongkan daftar FAQ sebelumnya
+  faqList.innerHTML = '';
+
+  // Fetch FAQ data from the server
+  fetch('/faq')
+    .then(response => response.json())
+    .then(data => {
+      if (data.faqs.length > 0) {
+        data.faqs.forEach(faq => {
+          const faqItem = `
+                      <div class="faq-item">
+                          <h5>${faq.question}</h5>
+                          <p>${faq.answer}</p>
+                      </div>
+                  `;
+          faqList.innerHTML += faqItem;
+        });
+      } else {
+        faqList.innerHTML = '<p>No FAQs available.</p>';
+      }
+    })
+    .catch(error => console.error('Error fetching FAQs:', error));
+
+  // Show the FAQ modal
+  faqModal.style.display = 'block';
+}
+
+function closeFAQModal() {
+  const faqModal = document.getElementById('faq-modal');
+  faqModal.style.display = 'none';
+}
+
+// Open FAQ modal when FAQ button is clicked
+document.getElementById('open-faq').addEventListener('click', function (e) {
+  e.preventDefault();
+  loadFAQ();
+});
+
+// Close FAQ modal when close button is clicked
+document.getElementById('close-faq').addEventListener('click', function () {
+  closeFAQModal();
+});
+
+// Close FAQ modal when clicking outside the modal
+window.addEventListener('click', function (e) {
+  const faqModal = document.getElementById('faq-modal');
+  if (e.target === faqModal) {
+    closeFAQModal();
+  }
+});

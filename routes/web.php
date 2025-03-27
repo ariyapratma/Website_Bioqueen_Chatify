@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\HeroServiceController;
 use App\Http\Controllers\ProductListController;
 use App\Http\Controllers\HeaderMaklonController;
 use App\Http\Controllers\NotificationController;
+use Chatify\Http\Controllers\MessagesController;
 use App\Http\Controllers\HeaderAboutUsController;
 use App\Http\Controllers\HeaderContactController;
 use App\Http\Controllers\HeaderProductController;
@@ -32,7 +34,6 @@ use App\Http\Controllers\HeroMaklonValueController;
 use App\Http\Controllers\HeroVisionMisionController;
 use App\Http\Controllers\HeroExcellenceValueController;
 use App\Http\Controllers\HeroFacilitiesValueController;
-use Chatify\Http\Controllers\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,13 +47,13 @@ use Chatify\Http\Controllers\MessagesController;
 */
 
 Route::middleware(['auth', 'verified', 'role:admin|user'])->group(function () {
-    // Route utama chat
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-
     // Chatify Routes
     Route::prefix('chatify')->group(function () {
-        Route::get('/', [MessagesController::class, 'index'])->name(config('chatify.routes.prefix'));
+        // Halaman utama Chatify
+        Route::get('/', [MessagesController::class, 'index'])->name('chatify');
+        Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
+        // Rute lainnya untuk Chatify
         Route::post('/idInfo', [MessagesController::class, 'idFetchData']);
         Route::post('/sendMessage', [MessagesController::class, 'send'])->name('send.message');
         Route::post('/fetchMessages', [MessagesController::class, 'fetch'])->name('fetch.messages');
