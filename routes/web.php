@@ -34,6 +34,7 @@ use App\Http\Controllers\HeroMaklonValueController;
 use App\Http\Controllers\HeroVisionMisionController;
 use App\Http\Controllers\HeroExcellenceValueController;
 use App\Http\Controllers\HeroFacilitiesValueController;
+use App\Http\Controllers\HeroFaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -232,6 +233,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/admin/hero-review/{heroReview}', [HeroReviewController::class, 'update'])->name('admin.hero-review.update');
             Route::delete('/admin/hero-review/{id}', [HeroReviewController::class, 'destroy'])->name('admin.hero-review.destroy');
         });
+
+        // Route HeroFaq
+        Route::get('/hero-faq', [HeroFaqController::class, 'index'])->name('hero-faq.index');
+        Route::get('/hero-faq/create', [HeroFaqController::class, 'create'])->name('hero-faq.create');
+        Route::post('/hero-faq', [HeroFaqController::class, 'store'])->name('hero-faq.store');
+        Route::get('/hero-faq/{heroFaq}/edit', [HeroFaqController::class, 'edit'])->name('hero-faq.edit');
+        Route::put('/hero-faq/{heroFaq}', [HeroFaqController::class, 'update'])->name('hero-faq.update');
+        Route::delete('/hero-faq/{id}', [HeroFaqController::class, 'destroy'])->name('hero-faq.destroy');
 
         // AboutUs Page :
 

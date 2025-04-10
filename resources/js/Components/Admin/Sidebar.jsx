@@ -34,7 +34,8 @@ const Sidebar = ({ activeMenu, setActiveMenu, auth }) => {
       activeMenu.startsWith("hero-service") ||
       activeMenu.startsWith("hero-video") ||
       activeMenu.startsWith("hero-excellence-value") ||
-      activeMenu.startsWith("admin/hero-review"),
+      activeMenu.startsWith("admin/hero-review") ||
+      activeMenu.startsWith("hero-faq"),
     );
 
     setDropdownAboutUsOpen(
@@ -176,7 +177,8 @@ const Sidebar = ({ activeMenu, setActiveMenu, auth }) => {
                 activeMenu.startsWith("hero-service") ||
                 activeMenu.startsWith("hero-video") ||
                 activeMenu.startsWith("hero-excellence-value") ||
-                activeMenu.startsWith("admin/hero-review")
+                activeMenu.startsWith("admin/hero-review") ||
+                activeMenu.startsWith("hero-faq")
                 ? "bg-custom-yellow text-black"
                 : "text-gray-600 hover:bg-gray-100"
                 } transition duration-300`}
@@ -210,6 +212,7 @@ const Sidebar = ({ activeMenu, setActiveMenu, auth }) => {
                   "hero-video",
                   "hero-excellence-value",
                   "admin/hero-review",
+                  "hero-faq",
                 ].map((item) => (
                   <li key={item}>
                     <Link

@@ -1,4 +1,5 @@
 import { usePage } from "@inertiajs/react";
+import { FaCommentDots } from "react-icons/fa";
 
 const HeaderHome = () => {
   const { props } = usePage();
@@ -38,6 +39,13 @@ const HeaderHome = () => {
           Konsultasikan Sekarang
         </button>
       </div>
+      {/* Icon Chat */}
+      <a
+        href="/chatify"
+        className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-custom-yellow text-black shadow-lg transition-transform hover:scale-110"
+      >
+        <FaCommentDots size={24} />
+      </a>
     </div>
   );
 };

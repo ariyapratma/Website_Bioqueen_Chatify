@@ -22,25 +22,25 @@
             <input type="text" class="messenger-search" placeholder="Search" />
 
             <!-- Tabs -->
-            <div class="messenger-listView-tabs">
+            <!-- <div class="messenger-listView-tabs">
                 <a href="#" class="active-tab" data-view="users">
                     <span class="far fa-user"></span> Contacts
                 </a>
                 <a href="#" id="open-faq" class="faq-tab">
                     <span class="fas fa-question-circle"></span> FAQ
                 </a>
-            </div>
+            </div> -->
         </div>
 
         <!-- Modal FAQ -->
-        <div id="faq-modal" class="modal" style="display: none;">
+        <!-- <div id="faq-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" id="close-faq">&times;</span>
                 <h2>FAQ (Frequently Asked Questions)</h2>
                 <div id="faq-list">
                 </div>
             </div>
-        </div>
+        </div> -->
         {{-- tabs and lists --}}
         <div class="m-body contacts-container">
             {{-- Lists [Users/Group] --}}
@@ -92,9 +92,9 @@
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
                     <a href="/"><i class="fas fa-home"></i></a>
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
-                    <a href="#" id="open-faq-chat" class="faq-tab-chat">
+                    <!-- <a href="#" id="open-faq-chat" class="faq-tab-chat">
                         <span class="fas fa-question-circle"></span> FAQ
-                    </a>
+                    </a> -->
                 </nav>
             </nav>
             {{-- Internet connection --}}
@@ -109,7 +109,7 @@
         <div class="m-body messages-container app-scroll">
             <div class="messages">
                 <!-- FAQ Section -->
-                <h4 class="faq-title">Frequently Asked Questions (FAQ)</h4>
+                <!-- <h4 class="faq-title">Frequently Asked Questions (FAQ)</h4>
                 <div class="faq-accordion">
                     @if(isset($faqs))
                     @foreach ($faqs as $faq)
@@ -125,7 +125,7 @@
                     @else
                     <p>No FAQs available.</p>
                     @endif
-                </div>
+                </div> -->
             </div>
             {{-- Typing indicator --}}
             <div class="typing-indicator">

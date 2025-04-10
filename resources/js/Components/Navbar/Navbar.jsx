@@ -55,14 +55,12 @@ export default function Navbar({ auth }) {
     { name: "About", path: "/about" },
     { name: "Product", path: "/product" },
     { name: "Order", path: "/order" },
-    { name: "Chat", path: "/chatify" },
   ];
 
   return (
     <nav
-      className={`fixed left-0 top-0 z-50 w-full shadow-md transition-colors duration-300 ${
-        isScrolled ? "bg-white text-gray-800" : "text-base-content bg-white"
-      }`}
+      className={`fixed left-0 top-0 z-50 w-full shadow-md transition-colors duration-300 ${isScrolled ? "bg-white text-gray-800" : "text-base-content bg-white"
+        }`}
     >
       <div className="container relative mx-auto flex items-center justify-between px-4 py-2 md:px-8">
         {/* Logo */}
@@ -78,12 +76,11 @@ export default function Navbar({ auth }) {
             <Link
               key={path}
               href={path}
-              className={`rounded-lg px-4 py-2 font-lexend text-sm text-gray-700 transition-all duration-300 hover:text-black ${
-                url === path ||
+              className={`rounded-lg px-4 py-2 font-lexend text-sm text-gray-700 transition-all duration-300 hover:text-black ${url === path ||
                 (path === "/product" && url.startsWith("/product"))
-                  ? "font-semibold text-black"
-                  : ""
-              }`}
+                ? "font-semibold text-black"
+                : ""
+                }`}
             >
               {name}
             </Link>
@@ -94,11 +91,10 @@ export default function Navbar({ auth }) {
         <div className="flex items-center gap-2">
           {/* Notification Icon */}
           <div
-            className={`relative flex items-center justify-center rounded-full p-1 transition-all duration-300 ${
-              url === "/notifications"
-                ? "bg-gray-100 text-black"
-                : "hover:bg-gray-100"
-            }`}
+            className={`relative flex items-center justify-center rounded-full p-1 transition-all duration-300 ${url === "/notifications"
+              ? "bg-gray-100 text-black"
+              : "hover:bg-gray-100"
+              }`}
           >
             <Notification className="h-6 w-6 text-gray-700" />
           </div>
@@ -106,9 +102,8 @@ export default function Navbar({ auth }) {
           {/* Cart Icon */}
           <Link
             href="/cart"
-            className={`relative flex items-center justify-center rounded-full p-1 transition-all duration-300 ${
-              url === "/cart" ? "bg-gray-100 text-black" : "hover:bg-gray-100"
-            }`}
+            className={`relative flex items-center justify-center rounded-full p-1 transition-all duration-300 ${url === "/cart" ? "bg-gray-100 text-black" : "hover:bg-gray-100"
+              }`}
           >
             <RiShoppingBagLine className="h-6 w-6 font-lexend text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none" />
             {cartItems > 0 && (
@@ -146,7 +141,7 @@ export default function Navbar({ auth }) {
                     className="inline-flex items-center rounded-md border border-transparent px-3 py-2 font-lexend text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                   >
                     {/* {user?.name} */}
-                    {user.name.split(" ").slice(0, 2).join(" ")} 
+                    {user.name.split(" ").slice(0, 2).join(" ")}
                     <img
                       src={`/storage/avatars/${auth.user.id}.png`}
                       alt={auth.user.name}
@@ -212,12 +207,11 @@ export default function Navbar({ auth }) {
               <li key={path}>
                 <Link
                   href={path}
-                  className={`block px-4 py-2 ${
-                    url === path ||
+                  className={`block px-4 py-2 ${url === path ||
                     (url.startsWith("/product") && path === "/product")
-                      ? "font-bold"
-                      : "font-regular"
-                  } font-lexend hover:bg-gray-100`}
+                    ? "font-bold"
+                    : "font-regular"
+                    } font-lexend hover:bg-gray-100`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {name}
