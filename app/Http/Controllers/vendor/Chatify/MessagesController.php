@@ -2,18 +2,19 @@
 
 namespace Chatify\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Response;
 use App\Models\User;
-use App\Models\ChMessage as Message;
-use App\Models\ChFavorite as Favorite;
-use Chatify\Facades\ChatifyMessenger as Chatify;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request as FacadesRequest;
+use App\Models\HeroFaq;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\ChMessage as Message;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ChFavorite as Favorite;
+use Illuminate\Support\Facades\Response;
+use Chatify\Facades\ChatifyMessenger as Chatify;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class MessagesController extends Controller
 {
@@ -41,16 +42,48 @@ class MessagesController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    // public function index($id = null)
+    // {
+    //     $messenger_color = Auth::user()->messenger_color;
+    //     return view('Chatify::pages.app', [
+    //         'id' => $id ?? 0,
+    //         'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
+    //         'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
+    //     ]);
+    // }
+
+    // public function index($id = null)
+    // {
+    //     $messenger_color = Auth::user()->messenger_color;
+
+    //     // Ambil data FAQ dari database
+    //     $heroFaq = HeroFaq::all();
+
+    //     return view('Chatify::pages.app', [
+    //         'id' => $id ?? 0,
+    //         'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
+    //         'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
+    //         'dataHeroFaq' => $heroFaq,
+    //     ]);
+    // }
+
     public function index($id = null)
     {
         $messenger_color = Auth::user()->messenger_color;
+
+        // Ambil data FAQ dari database
+        $heroFaq = \App\Models\HeroFaq::all();
+
+        // Debugging: Cetak data FAQ
+        dd($heroFaq);
+
         return view('Chatify::pages.app', [
             'id' => $id ?? 0,
             'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
             'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
+            'dataHeroFaq' => $heroFaq, // Kirim data FAQ ke view
         ]);
     }
-
 
     /**
      * Fetch data (user, favorite.. etc).

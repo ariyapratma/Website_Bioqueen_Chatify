@@ -98,16 +98,16 @@ const ManageHeroFaq = ({ dataHeroFaq, auth }) => {
                         <tbody className="divide-y divide-gray-200 bg-white">
                             {dataHeroFaq.map((heroFaq) => (
                                 <tr key={heroFaq.id}>
-                                    <td className="whitespace-nowrap px-6 py-4 text-center font-lexend text-sm text-gray-700">
+                                    <td className="max-w-[150px] truncate whitespace-nowrap px-4 py-4 text-center font-lexend text-sm text-gray-700">
                                         {heroFaq.id}
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4 text-center font-lexend text-sm text-gray-700">
+                                    <td className="max-w-[150px] truncate whitespace-nowrap px-4 py-4 text-center font-lexend text-sm text-gray-700">
                                         {heroFaq.question}
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4 text-center font-lexend text-sm text-gray-700">
+                                    <td className="max-w-[150px] truncate whitespace-nowrap px-4 py-4 text-center font-lexend text-sm text-gray-700">
                                         {heroFaq.answer}
                                     </td>
-                                    <td className="flex flex-col items-center justify-center space-y-2 whitespace-nowrap px-6 py-4 font-lexend text-sm font-medium">
+                                    <td className="flex flex-col items-center justify-center space-y-2 whitespace-nowrap px-4 py-3 font-lexend text-sm font-medium">
                                         {/* Edit Button */}
                                         <Link
                                             href={`/hero-faq/${heroFaq.id}/edit`}

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\HeroFaq;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class HeroFaqController extends Controller
 {

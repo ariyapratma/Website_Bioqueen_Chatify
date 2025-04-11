@@ -109,23 +109,16 @@
         <div class="m-body messages-container app-scroll">
             <div class="messages">
                 <!-- FAQ Section -->
-                <!-- <h4 class="faq-title">Frequently Asked Questions (FAQ)</h4>
-                <div class="faq-accordion">
-                    @if(isset($faqs))
-                    @foreach ($faqs as $faq)
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" data-bs-toggle="collapse" data-bs-target="#faq-answer-{{ $faq->id }}" aria-expanded="false" aria-controls="faq-answer-{{ $faq->id }}">
-                            {{ $faq->question }}
-                        </button>
-                        <div id="faq-answer-{{ $faq->id }}" class="faq-answer collapse">
-                            <p>{{ $faq->answer }}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                    @else
-                    <p>No FAQs available.</p>
-                    @endif
-                </div> -->
+                @if(isset($dataHeroFaq) && count($dataHeroFaq) > 0)
+                @foreach ($dataHeroFaq as $faq)
+                <div class="message faq-message">
+                    <strong>{{ $faq->question }}</strong>
+                    <p>{{ $faq->answer }}</p>
+                </div>
+                @endforeach
+                @else
+                <p>No FAQs available.</p>
+                @endif
             </div>
             {{-- Typing indicator --}}
             <div class="typing-indicator">
