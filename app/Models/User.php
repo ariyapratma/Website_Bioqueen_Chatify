@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Cart;
+use App\Models\ChMessage;
+use App\Models\ChFavorite;
 use App\Models\Notification;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -65,5 +67,37 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+
+    /**
+     * Relasi dengan ChMessage (satu user bisa mengirim banyak pesan).
+     */
+    public function sentMessages()
+    {
+        return $this->hasMany(ChMessage::class, 'from_id');
+    }
+
+    /**
+     * Relasi dengan ChMessage (satu user bisa menerima banyak pesan).
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(ChMessage::class, 'to_id');
+    }
+
+    /**
+     * Relasi dengan ChFavorite (satu user bisa menambahkan banyak favorite items).
+     */
+    public function favorites()
+    {
+        return $this->hasMany(ChFavorite::class, 'user_id');
+    }
+
+    /**
+     * Relasi dengan ChFavorite (satu user bisa menjadi favorite dari banyak user).
+     */
+    public function favoritedBy()
+    {
+        return $this->hasMany(ChFavorite::class, 'favorite_id');
     }
 }
