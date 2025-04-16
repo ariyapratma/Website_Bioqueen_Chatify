@@ -57,7 +57,6 @@ class HeroFaqController extends Controller
      */
     public function edit(HeroFaq $heroFaq)
     {
-        $heroFaq = HeroFaq::findOrFail($id);
         return Inertia::render('Admin/Home/EditHeroFaq', [
             'dataHeroFaq' => $heroFaq
         ]);

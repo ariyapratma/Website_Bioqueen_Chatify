@@ -35,7 +35,7 @@ const EditHeroFaq = ({ dataHeroFaq, auth }) => {
                     scrollbarPadding: false,
                     backdrop: false,
                 }).then(() => {
-                    Inertia.visit("/hero-excellence-value");
+                    Inertia.visit("/hero-faq");
                 });
             },
             onError: () => {
@@ -73,7 +73,7 @@ const EditHeroFaq = ({ dataHeroFaq, auth }) => {
                     </Link>
                     <span className="text-gray-400">/</span>
                     <Link
-                        href="/hero-excellence-value"
+                        href="/hero-faq"
                         className="hover:text-black hover:underline"
                     >
                         Manage Hero Faq
