@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class HeroFaqController extends Controller
 {
+
+    public function api()
+    {
+        $heroFaq = HeroFaq::all();
+        return response()->json($heroFaq);
+    }
+
     /**
      * Display a listing of the resource.
      */

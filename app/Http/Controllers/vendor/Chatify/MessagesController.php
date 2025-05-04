@@ -42,40 +42,13 @@ class MessagesController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    // public function index($id = null)
-    // {
-    //     $messenger_color = Auth::user()->messenger_color;
-    //     return view('Chatify::pages.app', [
-    //         'id' => $id ?? 0,
-    //         'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
-    //         'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
-    //     ]);
-    // }
-
-    // public function index($id = null)
-    // {
-    //     $messenger_color = Auth::user()->messenger_color;
-
-    //     // Ambil data FAQ dari database
-    //     $heroFaq = HeroFaq::all();
-
-    //     return view('Chatify::pages.app', [
-    //         'id' => $id ?? 0,
-    //         'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
-    //         'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
-    //         'dataHeroFaq' => $heroFaq,
-    //     ]);
-    // }
 
     public function index($id = null)
     {
         $messenger_color = Auth::user()->messenger_color;
 
         // Ambil data FAQ dari database
-        $heroFaq = \App\Models\HeroFaq::all();
-
-        // Debugging: Cetak data FAQ
-        dd($heroFaq);
+        $heroFaq = HeroFaq::all();
 
         return view('Chatify::pages.app', [
             'id' => $id ?? 0,
@@ -85,25 +58,33 @@ class MessagesController extends Controller
         ]);
     }
 
+    public function getFaq()
+    {
+        try {
+            // Ambil data FAQ dari database
+            $faqs = HeroFaq::all();
+
+            // Kembalikan data sebagai JSON
+            return response()->json([
+                'success' => true,
+                'data' => $faqs,
+            ]);
+        } catch (\Exception $e) {
+            // Tangani error jika terjadi
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching FAQs.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     /**
      * Fetch data (user, favorite.. etc).
      *
      * @param Request $request
      * @return JsonResponse
      */
-    // public function idFetchData(Request $request)
-    // {
-    //     $favorite = Chatify::inFavorite($request['id']);
-    //     $fetch = User::where('id', $request['id'])->first();
-    //     if($fetch){
-    //         $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
-    //     }
-    //     return Response::json([
-    //         'favorite' => $favorite,
-    //         'fetch' => $fetch ?? null,
-    //         'user_avatar' => $userAvatar ?? null,
-    //     ]);
-    // }
 
     public function idFetchData(Request $request)
     {

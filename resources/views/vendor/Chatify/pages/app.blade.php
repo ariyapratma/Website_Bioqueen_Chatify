@@ -15,6 +15,7 @@
                 <!-- Header buttons -->
                 <nav class="m-header-right">
                     <a href="#" class="listView-x"><i class="fas fa-times"></i></a>
+                    <a href="#"><i class="fas fa-cog settings-btn"></i></a>
                 </nav>
             </nav>
 
@@ -22,25 +23,22 @@
             <input type="text" class="messenger-search" placeholder="Search" />
 
             <!-- Tabs -->
-            <!-- <div class="messenger-listView-tabs">
+            <div class="messenger-listView-tabs">
+                <!-- FAQ Section (Langsung Tampil) -->
                 <a href="#" class="active-tab" data-view="users">
                     <span class="far fa-user"></span> Contacts
                 </a>
-                <a href="#" id="open-faq" class="faq-tab">
-                    <span class="fas fa-question-circle"></span> FAQ
-                </a>
-            </div> -->
+            </div>
         </div>
 
-        <!-- Modal FAQ -->
-        <!-- <div id="faq-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" id="close-faq">&times;</span>
-                <h2>FAQ (Frequently Asked Questions)</h2>
-                <div id="faq-list">
-                </div>
+        <!-- Tambahkan FAQ di sini -->
+        <div id="faq-section" class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div id="faq-list">
+                <p>Loading FAQ...</p>
             </div>
-        </div> -->
+        </div>
+
         {{-- tabs and lists --}}
         <div class="m-body contacts-container">
             {{-- Lists [Users/Group] --}}
@@ -55,7 +53,7 @@
                 <p class="messenger-title"><span>Your Space</span></p>
                 {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!}
                 {{-- Contact --}}
-                <p class="messenger-title"><span>All Messages</span></p>
+                <!-- <p class="messenger-title"><span>All Messages</span></p> -->
                 <div class="listOfContacts" style="width: 100%;height: calc(100% - 272px);position: relative;"></div>
             </div>
             {{-- ---------------- [ Search Tab ] ---------------- --}}
@@ -108,17 +106,6 @@
         {{-- Messaging area --}}
         <div class="m-body messages-container app-scroll">
             <div class="messages">
-                <!-- FAQ Section -->
-                @if(isset($dataHeroFaq) && count($dataHeroFaq) > 0)
-                @foreach ($dataHeroFaq as $faq)
-                <div class="message faq-message">
-                    <strong>{{ $faq->question }}</strong>
-                    <p>{{ $faq->answer }}</p>
-                </div>
-                @endforeach
-                @else
-                <p>No FAQs available.</p>
-                @endif
             </div>
             {{-- Typing indicator --}}
             <div class="typing-indicator">
@@ -151,3 +138,40 @@
 
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqList = document.getElementById('faq-list');
+
+        // Fetch FAQ dari API saat halaman dimuat
+        fetch('/api/faq')
+            .then(res => res.json())
+            .then(data => {
+                faqList.innerHTML = ''; // Kosongkan dulu
+                if (data.length > 0) {
+                    data.forEach((faq, index) => {
+                        faqList.innerHTML += `
+                            <div class="faq-item" data-index="${index}">
+                                <strong>${faq.question}</strong>
+                                <p>${faq.answer}</p>
+                            </div>
+                        `;
+                    });
+
+                    // Tambahkan efek klik untuk expand/collapse
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            const isActive = item.classList.contains('active');
+                            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                            if (!isActive) item.classList.add('active');
+                        });
+                    });
+                } else {
+                    faqList.innerHTML = '<p>No FAQs available.</p>';
+                }
+            })
+            .catch(err => {
+                console.error('Failed to fetch FAQ:', err);
+                faqList.innerHTML = '<p>Failed to load FAQ.</p>';
+            });
+    });
+</script>

@@ -88,7 +88,7 @@ return [
         'download_route_name' => 'attachments.download',
         'allowed_images' => (array) ['png', 'jpg', 'jpeg', 'gif'],
         'allowed_files' => (array) ['zip', 'rar', 'txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'mp4', 'mp3'],
-        'max_upload_size' => env('CHATIFY_MAX_FILE_SIZE', 10000000000), // MB
+        'max_upload_size' => env('CHATIFY_MAX_FILE_SIZE', 10000000000),
     ],
 
     /*

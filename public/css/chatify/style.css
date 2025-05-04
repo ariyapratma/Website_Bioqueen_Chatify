@@ -120,8 +120,7 @@ body {
 
 .messenger-search:focus {
   outline: none !important;
-  border-color: black !important;
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
 }
 
 .messenger-listView {
@@ -182,11 +181,11 @@ body {
 .m-header-messaging {
   position: relative;
   background: #fff;
-  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.06); */
 }
 
 .m-header svg {
-  color: black;
+  color: var(--primary-color);
   font-size: var(--icon-size);
   transition: transform 0.12s;
 }
@@ -209,7 +208,7 @@ body {
   width: 100%;
   margin-top: 10px;
   background-color: transparent;
-  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.06); */
 }
 
 .messenger-listView-tabs a {
@@ -275,18 +274,18 @@ body {
   margin: 0;
   width: 100%;
   cursor: pointer;
-  color: black;
+  color: var(--primary-color);
 }
 
 .m-list-active span,
 .m-list-active p {
-  color: #fff !important;
+  color: #4caf50;
 }
 
 .m-list-active,
 .m-list-active:hover,
 .m-list-active:focus {
-  background-color: black !important;
+  background-color: var(--primary-color);
 }
 
 .m-list-active b {
@@ -325,7 +324,7 @@ body {
 .messenger-list-item td b {
   float: right;
   color: #fff;
-  background: black;
+  background: var(--primary-color);
   padding: 0px 4px;
   border-radius: 20px;
   font-size: 13px;
@@ -371,11 +370,11 @@ body {
 
 .saved-messages.avatar>svg {
   font-size: 22px;
-  color: black;
+  color: var(--primary-color);
 }
 
 .messenger-list-item.m-list-active .saved-messages.avatar>svg {
-  color: #fff;
+  color: var(--primary-color);
 }
 
 .messenger-list-item.m-list-active .saved-messages.avatar {
@@ -598,7 +597,6 @@ body {
 .message-card.mc-sender .message {
   direction: ltr;
   color: #fff !important;
-  background: black !important;
 }
 
 .message-card.mc-sender .message .message-time {
@@ -614,9 +612,9 @@ body {
   color: #ff0000 !important;
 }
 
-.messenger-sendCard .send-button svg {
-  color: black;
-}
+/* .messenger-sendCard .send-button svg {
+
+} */
 
 .listView-x,
 .show-listView {
@@ -741,7 +739,6 @@ body {
 .file-download {
   font-size: 12px;
   display: block;
-  color: #333;
   text-decoration: none;
   font-weight: 600;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -857,7 +854,7 @@ body {
 }
 
 .lastMessageIndicator {
-  color: var(--primary-color) !important;
+  color: var(--dark-modal-bg-color);
 }
 
 /*
@@ -876,12 +873,10 @@ body {
   outline: none;
   text-decoration: none;
   transition: all 0.3s;
-  color: black;
 }
 
 .app-btn:hover,
 .app-btn:focus {
-  color: black;
   outline: none;
   text-decoration: none;
 }
@@ -1356,8 +1351,6 @@ div.loadingPlaceholder-date {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
 }
 
 .m-header nav {
@@ -1382,7 +1375,7 @@ div.loadingPlaceholder-date {
 
 .m-header-right a {
   margin-left: 10px;
-  color: #333;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -1411,28 +1404,84 @@ div.loadingPlaceholder-date {
   border-radius: 4px;
 }
 
-/* Styling untuk FAQ di area chat */
-#faq-placeholder {
-  margin: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
+/* Container FAQ */
+.faq-section {
+  background-color: var(--primary-bg-color);
+  padding: 20px;
+  margin: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Title */
+.faq-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: var(--primary-color);
+  text-align: left;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 10px;
+}
+
+/* Each FAQ item */
+.faq-item {
+  margin-bottom: 10px;
   border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background-color: var(--secondary-bg-color);
+  transition: background-color 0.3s ease;
 }
 
-.faq-title {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #333;
+.faq-item:hover {
+  background-color: var(--secondary-bg-color);
 }
 
-.faq-message {
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #eaeaea;
-  border-radius: 4px;
-  line-height: 1.5;
+/* Question */
+.faq-item strong {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+  position: relative;
 }
 
-.faq-message strong {
-  color: #555;
+.faq-item strong::after {
+  content: '⌄';
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active strong::after {
+  transform: rotate(180deg);
+}
+
+/* Answer */
+.faq-item p {
+  padding: 0 16px 14px;
+  font-size: 14px;
+  color: #4b5563;
+  display: none;
+  line-height: 1.6;
+}
+
+.faq-item.active p {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

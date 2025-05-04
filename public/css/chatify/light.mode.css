@@ -19,7 +19,7 @@
 
 .messenger-search[type="text"] {
     background: var(--secondary-bg-color);
-    color: #333;
+    color: var(--primary-color);
 }
 
 .messenger-listView {
@@ -60,7 +60,7 @@
 }
 
 .messenger-infoView>p {
-    color: #000;
+    color: var(--primary-color);
 }
 
 .divider {
@@ -73,16 +73,16 @@
 }
 
 .attachment-preview>p {
-    color: #333;
+    color: var(--primary-color);
 }
 
 .m-send {
-    color: #333;
+    color: var(--primary-color);
 }
 
 .message-card .message {
     background: var(--message-card-color);
-    color: #333;
+    color: var(--primary-color);
     box-shadow: 0px 6px 11px rgba(18, 67, 105, 0.03);
 }
 
@@ -94,15 +94,15 @@
 .m-header a:hover,
 .m-header a:focus {
     text-decoration: none;
-    color: #202020;
+    color: var(--primary-color);
 }
 
 .messenger-list-item td p {
-    color: #3c3c3c;
+    color: var(--primary-color);
 }
 
 .messenger-list-item td span {
-    color: #929292;
+    color: var(--primary-color);
 }
 
 .activeStatus {
@@ -114,7 +114,7 @@
 }
 
 .messenger-favorites>div p {
-    color: #4a4a4a;
+    color: var(--primary-color);
 }
 
 .avatar {
@@ -127,7 +127,7 @@
 }
 
 .messenger-title {
-    color: #797979;
+    color: var(--primary-color);
 }
 
 .messenger-title>span {
@@ -159,7 +159,7 @@
 }
 
 .messenger-infoView>nav>p {
-    color: #333;
+    color: var(--primary-color);
 }
 
 /*
@@ -173,11 +173,11 @@
 }
 
 .app-modal-header {
-    color: #000;
+    color: var(--primary-color);
 }
 
 .app-modal-body {
-    color: #000;
+    color: var(--primary-color);
 }
 
 /*

@@ -2,29 +2,52 @@
 
 namespace Chatify\Http\Controllers\Api;
 
+use App\Models\User;
+use App\Models\HeroFaq;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Response;
-use App\Models\ChMessage as Message;
-use App\Models\ChFavorite as Favorite;
-use Chatify\Facades\ChatifyMessenger as Chatify;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\ChMessage as Message;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ChFavorite as Favorite;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Response;
+use Chatify\Facades\ChatifyMessenger as Chatify;
 
 
 class MessagesController extends Controller
 {
     protected $perPage = 30;
 
-     /**
+    /**
      * Authinticate the connection for pusher
      *
      * @param Request $request
      * @return void
      */
+
+    public function getFaq()
+    {
+        try {
+            // Ambil data FAQ dari database
+            $faqs = HeroFaq::all();
+
+            // Kembalikan data sebagai JSON
+            return response()->json([
+                'success' => true,
+                'data' => $faqs,
+            ]);
+        } catch (\Exception $e) {
+            // Tangani error jika terjadi
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching FAQs.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function pusherAuth(Request $request)
     {
         return Chatify::pusherAuth(
@@ -50,7 +73,7 @@ class MessagesController extends Controller
         // User data
         if ($request['type'] == 'user') {
             $fetch = User::where('id', $request['id'])->first();
-            if($fetch){
+            if ($fetch) {
                 $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
             }
         }
@@ -80,7 +103,7 @@ class MessagesController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'message'=>"Sorry, File does not exist in our server or may have been deleted!"
+                'message' => "Sorry, File does not exist in our server or may have been deleted!"
             ], 404);
         }
     }
@@ -145,7 +168,7 @@ class MessagesController extends Controller
 
             // send to user using pusher
             if (Auth::user()->id != $request['id']) {
-                Chatify::push("private-chatify.".$request['id'], 'messaging', [
+                Chatify::push("private-chatify." . $request['id'], 'messaging', [
                     'from_id' => Auth::user()->id,
                     'to_id' => $request['id'],
                     'message' => $messageData
@@ -212,15 +235,15 @@ class MessagesController extends Controller
             $join->on('ch_messages.from_id', '=', 'users.id')
                 ->orOn('ch_messages.to_id', '=', 'users.id');
         })
-        ->where(function ($q) {
-            $q->where('ch_messages.from_id', Auth::user()->id)
-            ->orWhere('ch_messages.to_id', Auth::user()->id);
-        })
-        ->where('users.id','!=',Auth::user()->id)
-        ->select('users.*',DB::raw('MAX(ch_messages.created_at) max_created_at'))
-        ->orderBy('max_created_at', 'desc')
-        ->groupBy('users.id')
-        ->paginate($request->per_page ?? $this->perPage);
+            ->where(function ($q) {
+                $q->where('ch_messages.from_id', Auth::user()->id)
+                    ->orWhere('ch_messages.to_id', Auth::user()->id);
+            })
+            ->where('users.id', '!=', Auth::user()->id)
+            ->select('users.*', DB::raw('MAX(ch_messages.created_at) max_created_at'))
+            ->orderBy('max_created_at', 'desc')
+            ->groupBy('users.id')
+            ->paginate($request->per_page ?? $this->perPage);
 
         return response()->json([
             'contacts' => $users->items(),
@@ -275,9 +298,9 @@ class MessagesController extends Controller
     public function search(Request $request)
     {
         $input = trim(filter_var($request['input']));
-        $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
-                    ->paginate($request->per_page ?? $this->perPage);
+        $records = User::where('id', '!=', Auth::user()->id)
+            ->where('name', 'LIKE', "%{$input}%")
+            ->paginate($request->per_page ?? $this->perPage);
 
         foreach ($records->items() as $index => $record) {
             $records[$index] += Chatify::getUserWithAvatar($record);
@@ -296,16 +319,33 @@ class MessagesController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function sharedPhotos(Request $request)
+    // {
+    //     $images = Chatify::getSharedPhotos($request['user_id']);
+
+    //     foreach ($images as $image) {
+    //         $image = asset(config('chatify.attachments.folder') . $image);
+    //     }
+    //     // send the response
+    //     return Response::json([
+    //         'shared' => $images ?? [],
+    //     ], 200);
+    // }
+
     public function sharedPhotos(Request $request)
     {
+        // Ambil daftar foto yang dibagikan
         $images = Chatify::getSharedPhotos($request['user_id']);
 
+        // Pastikan setiap foto memiliki URL lengkap
+        $sharedPhotos = [];
         foreach ($images as $image) {
-            $image = asset(config('chatify.attachments.folder') . $image);
+            $sharedPhotos[] = asset(config('chatify.attachments.folder') . '/' . $image);
         }
-        // send the response
+
+        // Kirim respons JSON
         return Response::json([
-            'shared' => $images ?? [],
+            'shared' => count($sharedPhotos) > 0 ? $sharedPhotos : '<p class="message-hint"><span>Nothing shared yet</span></p>',
         ], 200);
     }
 
