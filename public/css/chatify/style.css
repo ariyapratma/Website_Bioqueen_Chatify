@@ -596,12 +596,11 @@ body {
 
 .message-card.mc-sender .message {
   direction: ltr;
-  color: #fff !important;
 }
 
-.message-card.mc-sender .message .message-time {
+/* .message-card.mc-sender .message .message-time {
   color: rgba(255, 255, 255, 0.67);
-}
+} */
 
 .mc-error .message {
   background: rgba(255, 0, 0, 0.27) !important;
